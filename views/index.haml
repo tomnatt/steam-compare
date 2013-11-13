@@ -1,0 +1,6 @@
+%div.col_12
+    %h1= "Games"
+    %ul
+        - users.each do |key, user|
+            %li= user.name + ", " + user.games.length.to_s
+ 
