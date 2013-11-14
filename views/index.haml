@@ -3,4 +3,8 @@
     %ul
         - users.each do |key, user|
             %li= user.name + ", " + user.games.length.to_s
+    %p
+        link to 
+        %a{:href => "/compare?u=green,laggy"}= "compare"
+        thing
  
