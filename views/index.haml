@@ -1,11 +1,10 @@
-%div
-    %h1= "Who showed up?"
-    %form{:method => "get", :action => "compare", :class => "col_4"}
-        %fieldset.choose
-            %legend= "Choose your destruction"
-            -users.each_with_index do |(key, user), i|
-                %input{:type => "checkbox", :name => "user#{i}", :id => "#{user.name.downcase}", :value => "#{user.name.downcase}", :class => "checkbox"}
-                %label{:for => "#{user.name.downcase}", :class => "inline"}
-                    #{user.name} (#{user.games.length.to_s} games)
-                %br
-        %input{:type => "submit", :value => "Make it so"}
+%h1= "Who showed up?"
+%form{:method => "get", :action => "compare", :class => "col_4"}
+    %fieldset.choose
+        %legend= "Choose your destruction"
+        -users.each_with_index do |(key, user), i|
+            %input{:type => "checkbox", :name => "user#{i}", :id => "#{user.name.downcase}", :value => "#{user.name.downcase}", :class => "checkbox"}
+            %label{:for => "#{user.name.downcase}", :class => "inline"}
+                #{user.name} (#{user.games.length.to_s} games)
+            %br
+    %input{:type => "submit", :value => "Make it so"}
