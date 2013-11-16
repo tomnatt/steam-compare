@@ -1,5 +1,6 @@
 %div.col_12
-    %h1= "Games"
+    %h1= "What could we play?"
+    %p= "There are #{games.length.to_s} options"
     %ul.icons
         - games.each do |game|
             %li
