@@ -8,20 +8,22 @@ require './steam_user.rb'
 
 class MyApp < Sinatra::Base
 
-    # load config file - to do, load the below from a file
+    # load config file
+    config = JSON.parse(File.read("config.json"))
 
     # create users
     users = Hash.new
-    users["green"] = SteamUser.new("Green", 76561198000976107)
-    users["laggy"] = SteamUser.new("Laggy", 76561197970651383)
-    users["wheels"] = SteamUser.new("Wheels", 76561198001124293)
-    users["twosid"] = SteamUser.new("Twosid", 76561197977955065)
-    users["jimmy"] = SteamUser.new("Jimmy", 76561197999187925)
+    config["users"].each do |u|
+        users[u["name"].downcase] = SteamUser.new(u["name"], u["id"])
+    end
+
+    puts users.inspect
 
     # load the appid to name data
     url = "http://api.steampowered.com/ISteamApps/GetAppList/v0001/"
     appList = JSON.parse(Net::HTTP.get(URI.parse(url)))
 
+    # put the appid to name data in a useful format
     appHash = Hash.new
     appList["applist"]["apps"]["app"].each do |a|
         appHash[a["appid"]] = a["name"]
