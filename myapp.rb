@@ -14,9 +14,9 @@ class MyApp < Sinatra::Base
     users = Hash.new
     users["green"] = SteamUser.new("Green", 76561198000976107)
     users["laggy"] = SteamUser.new("Laggy", 76561197970651383)
-    #users["wheels"] = SteamUser.new("Wheels", 76561198001124293)
-    #users["twosid"] = SteamUser.new("Twosid", 76561197977955065)
-    #users["jimmy"] = SteamUser.new("Jimmy", 76561197999187925)
+    users["wheels"] = SteamUser.new("Wheels", 76561198001124293)
+    users["twosid"] = SteamUser.new("Twosid", 76561197977955065)
+    users["jimmy"] = SteamUser.new("Jimmy", 76561197999187925)
 
     # load the appid to name data
     url = "http://api.steampowered.com/ISteamApps/GetAppList/v0001/"
@@ -27,7 +27,7 @@ class MyApp < Sinatra::Base
         appHash[a["appid"]] = a["name"]
     end
 
-
+    # routing
     get '/' do
         title = "Who is playing?"
         haml :index, :format => :html5, :locals => {:title => title, :users => users}
@@ -35,30 +35,35 @@ class MyApp < Sinatra::Base
 
     get '/compare' do
 
-        selected = Array.new
+        # get the intersection of the games
+        sharedGamesIds = Array.new
         params.each do |key, value|
             # use the param if it's user0, etc
             if key =~ /user\d+/ then
-                selected << value
+                sharedGamesIds = intersectLists(sharedGamesIds, users[value].games)
             end
         end
-        puts selected
 
-
-        # get the intersection of the games list and convert to proper names
-        # todo make this more intelligent, and power from the parameter
-        sharedGamesIds = (users["green"].games & users["laggy"].games)
+        # convert the games id list to game names
         sharedGames = Array.new
         sharedGamesIds.each do |g|
             sharedGames << appHash[g]
         end
         sharedGames.sort!
 
-        # todo put this into the template
-        puts sharedGames.length
-
         title = "What to play?"
         haml :compare, :format => :html5, :locals => {:title => title, :games => sharedGames}
     end
+
+    private
+
+        def intersectLists(list1, list2)
+            # return list2 if list1 is empty
+            if list1.length > 0 then
+                return list1 & list2
+            else 
+                return list2
+            end
+        end
 
 end
