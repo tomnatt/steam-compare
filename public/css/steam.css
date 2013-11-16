@@ -2,6 +2,10 @@ fieldset.choose {
     margin-top: 0;    
 }
 
+label {
+    margin-left: 5px;
+}
+
 .gamelist {
     margin: 0 0 20px 0;
     padding: 5px 15px 15px 15px;
