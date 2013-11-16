@@ -12,9 +12,11 @@
         / %script{:type => 'text/javascript', :src => '/js/kickstart.js'}
 
     %body.grid
-        %div{:class => 'col_12'}
+        %div.col_12
             =yield
 
-    %footer
-        %p= "Powered by Steam thing"
+    %footer.col_12
+        %p
+            This application is 
+            %a{:href => "http://steampowered.com"}= "powered by Steam"
             
