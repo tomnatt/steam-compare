@@ -1,3 +1,26 @@
 fieldset.choose {
     margin-top: 0;    
 }
+
+.gamelist {
+    margin: 0 0 20px 0;
+    padding: 5px 15px 15px 15px;
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.gamelist li {
+    position: relative;
+    left: 20px;
+}
+
+.clearboth {
+    clear: both;
+}
+
+footer {
+    font-size: small;
+}

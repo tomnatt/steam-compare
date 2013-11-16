@@ -1,8 +1,10 @@
-%div.col_12
-    %h1= "What could we play?"
-    %p= "There are #{games.length.to_s} options"
-    %ul.icons
-        - games.each do |game|
-            %li
-                %i.icon-ok
-                #{game}
+%h1= "What could we play?"
+%p= "There are #{games.length.to_s} options"
+%ul.icons.gamelist.col_8
+    - games.each do |game|
+        %li
+            %i.icon-ok
+            #{game}
+%p.clearboth
+    A new challanger has appeared. 
+    %a{:href => "/"}= "Take me back."
