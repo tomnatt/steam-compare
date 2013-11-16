@@ -7,19 +7,19 @@
 /*---------------------------------
 	IMPORTS
 -----------------------------------*/
-@import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
 /*---------------------------------
 	OVERRIDES
 -----------------------------------*/
 h1,h2,h3,h4,h5,h6{
-font-family: "Arimo", arial, verdana, sans-serif;
+font-family: "Open Sans", arial, verdana, sans-serif;
 font-weight:normal;
 }
 
 thead th,
 tbody th{
-font-family: "Arimo", arial, verdana, sans-serif;
+font-family: "Open Sans", arial, verdana, sans-serif;
 }
 
 button,
@@ -27,15 +27,15 @@ a.btn,
 input[type="submit"],
 input[type="reset"],
 input[type="button"]{
-font-family: "Arimo", arial, verdana, sans-serif;
+font-family: "Open Sans", arial, verdana, sans-serif;
 }
 
 .menu{
-font-family: "Arimo", arial, verdana, sans-serif;
+font-family: "Open Sans", arial, verdana, sans-serif;
 }
 
 blockquote{
-font-family: "Arimo", arial, verdana, sans-serif;
+font-family: "Open Sans", arial, verdana, sans-serif;
 }
 
 /*---------------------------------
@@ -46,7 +46,7 @@ margin:0;
 padding:0 0 0 0;
 color:#000;
 background:#efefef url(css/img/gray_jean.png);
-font:normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
+font:normal 0.9em/150% 'Open Sans', arial, verdana, sans-serif;
 text-shadow: 0 0 1px transparent; /* google font pixelation fix */
 }
 
