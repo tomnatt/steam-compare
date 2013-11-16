@@ -1,5 +1,7 @@
 %div.col_12
     %h1= "Games"
-    %ul
+    %ul.icons
         - games.each do |game|
-            %li= game
+            %li
+                %i.icon-ok
+                #{game}
