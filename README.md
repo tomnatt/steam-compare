@@ -16,7 +16,7 @@ Put your group and their Steam ids into `config.json`
 
 Setup:  
 ```sh
-gem install bundle
+gem install bundler
 bundle install
 ```
 
