@@ -1,9 +1,9 @@
 steam-compare
 =============
 
-Compare games on friends' steam lists
+Compare games on friends' steam lists.
 
-Written in ruby using Sinatra, HAML and HTML Kickstart
+Written in ruby using Sinatra, HAML and HTML Kickstart.
 
 Usage
 -----
