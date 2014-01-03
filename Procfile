@@ -1,2 +1,2 @@
-web: exec rackup config.ru -p 9292
+web: rackup config.ru -p $PORT
 
