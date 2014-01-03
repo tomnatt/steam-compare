@@ -3,12 +3,13 @@ require 'net/http'
 
 class SteamUser
 
-    attr_reader :id, :name, :games
+    attr_reader :id, :name, :games_time, :games
 
     def initialize(name, id)
         @id = id
         @name = name
-        @games = getOwnedGames
+        @games_time = getOwnedGames
+        @games = getGamesList
     end
 
     private
@@ -23,6 +24,18 @@ class SteamUser
             # put the games in a useful list
             games = Array.new
             gamesRaw.each do |g|
+                games << g
+            end
+
+            return games
+
+        end
+
+        def getGamesList
+
+            # create a list of just the games ids
+            games = Array.new
+            @games_time.each do |g|
                 games << g["appid"]
             end
 

@@ -17,8 +17,6 @@ class MyApp < Sinatra::Base
         users[u["name"].downcase] = SteamUser.new(u["name"], u["id"])
     end
 
-    puts users.inspect
-
     # load the appid to name data
     url = "http://api.steampowered.com/ISteamApps/GetAppList/v0001/"
     appList = JSON.parse(Net::HTTP.get(URI.parse(url)))
@@ -35,6 +33,7 @@ class MyApp < Sinatra::Base
         haml :index, :format => :html5, :locals => {:title => title, :users => users}
     end
 
+    # compare the games lists of the specified users
     get '/compare' do
 
         # get the intersection of the games
@@ -55,6 +54,20 @@ class MyApp < Sinatra::Base
 
         title = "What to play?"
         haml :compare, :format => :html5, :locals => {:title => title, :games => sharedGames}
+    end
+
+    # show a user's top games based on playtime
+    get '/favourites' do
+
+        u = users[params['user']]
+        puts u.games_time
+
+        # sort by time
+        # get the first 10 to pass to template
+
+        title = "I played this"
+        haml :favourites, :format => :html5, :locals => {:title => title}
+
     end
 
     private
