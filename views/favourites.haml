@@ -1,3 +1,6 @@
 %h1= "Where does my time go?"
-%p
-    Things are words
+%ul.icons.gamelist.col_8
+    - games.each do |game|
+        %li
+            %i.icon-ok
+            #{game["name"]}, #{game["time_played"]} hours

@@ -59,14 +59,25 @@ class MyApp < Sinatra::Base
     # show a user's top games based on playtime
     get '/favourites' do
 
-        u = users[params['user']]
-        puts u.games_time
+        all_games = users[params['user']].games_time
 
-        # sort by time
+        # sort by time (most first)
+        all_games.sort! { |a, b|  a["playtime_forever"] <=> b["playtime_forever"] }
+        all_games.reverse!
+
         # get the first 10 to pass to template
+        games = all_games[0..9]
+
+        # add the game name and time (in hours)
+        games.each do |g|
+            g["name"] = appHash[g["appid"]]
+            g["time_played"] = g["playtime_forever"] / 60
+        end
+
+        puts games
 
         title = "I played this"
-        haml :favourites, :format => :html5, :locals => {:title => title}
+        haml :favourites, :format => :html5, :locals => {:title => title, :games => games}
 
     end
 
