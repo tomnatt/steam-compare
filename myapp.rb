@@ -10,6 +10,7 @@ class MyApp < Sinatra::Base
 
     # load config file
     config = JSON.parse(File.read("config.json"))
+    config["users"].sort! { |a, b|  a["name"] <=> b["name"] }
 
     # create users
     users = Hash.new
@@ -62,8 +63,7 @@ class MyApp < Sinatra::Base
         all_games = users[params['user']].games_time
 
         # sort by time (most first)
-        all_games.sort! { |a, b|  a["playtime_forever"] <=> b["playtime_forever"] }
-        all_games.reverse!
+        all_games.sort! { |a, b|  b["playtime_forever"] <=> a["playtime_forever"] }
 
         # get the first 10 to pass to template
         games = all_games[0..9]
@@ -73,8 +73,6 @@ class MyApp < Sinatra::Base
             g["name"] = appHash[g["appid"]]
             g["time_played"] = g["playtime_forever"] / 60
         end
-
-        puts games
 
         title = "I played this"
         haml :favourites, :format => :html5, :locals => {:title => title, :games => games}
