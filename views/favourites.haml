@@ -1,6 +1,9 @@
-%h1= "Where does my time go?"
+%h1= "Where does #{user.name}'s time go?"
 %ul.icons.gamelist.col_8
     - games.each do |game|
         %li
             %i.icon-ok
             #{game["name"]}, #{game["time_played"]} hours
+%p.clearboth
+    Someone else?
+    %a{:href => "/"}= "Take me back."
