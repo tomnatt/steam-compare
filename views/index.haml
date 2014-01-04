@@ -1,10 +1,19 @@
-%h1= "Who showed up?"
-%form{:method => "get", :action => "compare", :class => "col_4"}
-    %fieldset.choose
-        %legend= "Choose your destruction"
+%h1= "Hey! Game time!"
+%div.col_5
+    %h2= "Who showed up?"
+    %form{:method => "get", :action => "compare", :class => "col_8 userlist"}
+        %fieldset.choose
+            %legend= "Choose your destruction"
+            -users.each_with_index do |(key, user), i|
+                %input{:type => "checkbox", :name => "user#{i}", :id => "#{user.name.downcase}", :value => "#{user.name.downcase}", :class => "checkbox"}
+                %label{:for => "#{user.name.downcase}", :class => "inline"}
+                    #{user.name} (#{user.games.length.to_s} games)
+                %br
+        %input{:type => "submit", :value => "Make it so"}
+%div.col_5
+    %h2= "What do we like?"
+    %ul.icons.favouriteslist.col_8
         -users.each_with_index do |(key, user), i|
-            %input{:type => "checkbox", :name => "user#{i}", :id => "#{user.name.downcase}", :value => "#{user.name.downcase}", :class => "checkbox"}
-            %label{:for => "#{user.name.downcase}", :class => "inline"}
-                #{user.name} (#{user.games.length.to_s} games)
-            %br
-    %input{:type => "submit", :value => "Make it so"}
+            %li
+                %i.icon-heart-empty
+                %a{:href => "/favourites?user=#{user.name.downcase}"}= "#{user.name}"
