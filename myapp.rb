@@ -76,7 +76,7 @@ class MyApp < Sinatra::Base
         end
 
         title = "I played this"
-        haml :favourites, :format => :html5, :locals => 
+        haml :favourites, :format => :html5, :locals =>
             {:title => title, :user => u, :games => games}
 
     end
@@ -87,7 +87,7 @@ class MyApp < Sinatra::Base
             # return list2 if list1 is empty
             if list1.length > 0 then
                 return list1 & list2
-            else 
+            else
                 return list2
             end
         end
