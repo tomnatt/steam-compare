@@ -14,16 +14,16 @@ If you're using heroku, set it [like this](https://devcenter.heroku.com/articles
 
 Put your group and their Steam ids into `config.json`
 
-Setup:  
+Setup:
 ```sh
 gem install bundler
 bundle install
 ```
 
-Go!  
+Go!
 ```sh
-rackup
+bundle exec rackup
 ```
 
-Behold:  
+Behold:
 [http://localhost:9292/](http://localhost:9292/)
