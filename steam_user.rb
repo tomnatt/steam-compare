@@ -2,46 +2,40 @@ require 'json'
 require 'net/http'
 
 class SteamUser
+  attr_reader :id, :name, :games_time, :games
 
-    attr_reader :id, :name, :games_time, :games
+  def initialize(name, id)
+    @id = id
+    @name = name
+    @games_time = owned_games
+    @games = games_list
+  end
 
-    def initialize(name, id)
-        @id = id
-        @name = name
-        @games_time = getOwnedGames
-        @games = getGamesList
+  private
+
+  def owned_games
+    # get the JSON list of the user's games
+    steam_key = ENV['STEAM_API_KEY']
+    url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steam_key}&steamid=#{@id}&format=json"
+    json = Net::HTTP.get(URI.parse(url))
+    games_raw = JSON.parse(json)['response']['games']
+
+    # put the games in a useful list
+    games = []
+    games_raw.each do |g|
+      games << g
     end
 
-    private
-        def getOwnedGames
+    games
+  end
 
-            # get the JSON list of the user's games
-            steam_key = ENV['STEAM_API_KEY']
-            url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steam_key}&steamid=#{@id}&format=json"
-            json = Net::HTTP.get(URI.parse(url))
-            gamesRaw = JSON.parse(json)["response"]["games"]
+  def games_list
+    # create a list of just the games ids
+    games = []
+    @games_time.each do |g|
+      games << g['appid']
+    end
 
-            # put the games in a useful list
-            games = Array.new
-            gamesRaw.each do |g|
-                games << g
-            end
-
-            return games
-
-        end
-
-        def getGamesList
-
-            # create a list of just the games ids
-            games = Array.new
-            @games_time.each do |g|
-                games << g["appid"]
-            end
-
-            return games
-
-        end
-
-
+    games
+  end
 end
