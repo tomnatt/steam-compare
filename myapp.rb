@@ -6,6 +6,8 @@ require 'sinatra'
 
 require './steam_user.rb'
 
+#set :port, 8080
+
 class MyApp < Sinatra::Base
   # load config file
   config = JSON.parse(File.read('config.json'))
@@ -47,7 +49,11 @@ class MyApp < Sinatra::Base
     # convert the games id list to game names
     shared_games = []
     shared_games_ids.each do |g|
-      shared_games << app_hash[g]
+      if app_hash[g].nil?
+        next
+      else
+        shared_games << app_hash[g]
+      end
     end
     shared_games.sort!
 

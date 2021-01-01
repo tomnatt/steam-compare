@@ -11,7 +11,7 @@ def getJSON(url)
     JSON.parse(json)
 end
 
-def getOwnedGames(person) 
+def getOwnedGames(person)
     url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{@steam_key}&steamid=#{person}&format=json"
     getJSON(url)
 end
@@ -47,7 +47,11 @@ end
 sharedGamesIds = greenGames & laggyGames
 sharedGames = Array.new
 sharedGamesIds.each do |g|
+  if appHash[g].nil?
+    next
+  else
     sharedGames << appHash[g]
+  end
 end
 sharedGames.sort!
 
