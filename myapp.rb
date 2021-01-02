@@ -4,9 +4,7 @@ require 'rubygems'
 require 'haml'
 require 'sinatra'
 
-require './steam_user.rb'
-
-#set :port, 8080
+require './steam_user'
 
 class MyApp < Sinatra::Base
   # load config file
@@ -49,11 +47,9 @@ class MyApp < Sinatra::Base
     # convert the games id list to game names
     shared_games = []
     shared_games_ids.each do |g|
-      if app_hash[g].nil?
-        next
-      else
-        shared_games << app_hash[g]
-      end
+      next if app_hash[g].nil?
+
+      shared_games << app_hash[g]
     end
     shared_games.sort!
 

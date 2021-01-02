@@ -3,6 +3,6 @@ require 'bundler'
 
 Bundler.require
 
-require './myapp.rb'
+require './myapp'
 
 run MyApp
