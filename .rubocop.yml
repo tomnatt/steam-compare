@@ -1,11 +1,20 @@
-Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+AllCops:
+  NewCops: enable
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 12
+
+Style/Documentation:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-Documentation:
-  Enabled: false
-
-Metrics/LineLength:
-  Max: 120
+Style/SymbolArray:
+  EnforcedStyle: brackets
