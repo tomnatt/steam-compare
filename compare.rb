@@ -6,54 +6,56 @@ require 'net/http'
 @laggy = 76561197970651383
 @steam_key = ENV['STEAM_API_KEY']
 
-def getJSON(url)
-    json = Net::HTTP.get(URI.parse(url))
-    JSON.parse(json)
+def pull_json(url)
+  json = Net::HTTP.get(URI.parse(url))
+  JSON.parse(json)
 end
 
-def getOwnedGames(person) 
-    url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{@steam_key}&steamid=#{person}&format=json"
-    getJSON(url)
+def pull_owned_games(person)
+  url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/
+         v0001/?key=#{@steam_key}&steamid=#{person}&format=json"
+  pull_json(url)
 end
 
-def getAppList
-    url = "http://api.steampowered.com/ISteamApps/GetAppList/v0001/"
-    getJSON(url)
+def pull_app_list
+  url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0001/'
+  pull_json(url)
 end
 
 # get id to name map
-appHash = Hash.new
-appList = getAppList
-appList["applist"]["apps"]["app"].each do |a|
-    appHash[a["appid"]] = a["name"]
+app_hash = {}
+app_list = pull_app_list
+app_list['applist']['apps']['app'].each do |a|
+  app_hash[a['appid']] = a['name']
 end
 
-
 # get green's games
-greenGamesRaw = getOwnedGames(@green)["response"]["games"]
-greenGames = Array.new
-greenGamesRaw.each do |g|
-    greenGames << g["appid"]
+green_games_raw = pull_owned_games(@green)['response']['games']
+green_games = []
+green_games_raw.each do |g|
+  green_games << g['appid']
 end
 
 # get laggy's games
-laggyGamesRaw = getOwnedGames(@laggy)["response"]["games"]
-laggyGames = Array.new
-laggyGamesRaw.each do |g|
-    laggyGames << g["appid"]
+laggy_games_raw = pull_owned_games(@laggy)['response']['games']
+laggy_games = []
+laggy_games_raw.each do |g|
+  laggy_games << g['appid']
 end
 
 # get the intersection
-sharedGamesIds = greenGames & laggyGames
-sharedGames = Array.new
-sharedGamesIds.each do |g|
-    sharedGames << appHash[g]
+shared_games_ids = green_games & laggy_games
+shared_games = []
+shared_games_ids.each do |g|
+  next if app_hash[g].nil?
+
+  shared_games << app_hash[g]
 end
-sharedGames.sort!
+shared_games.sort!
 
 # spit them out to screen
-sharedGames.each do |g|
-    puts g
+shared_games.each do |g|
+  puts g
 end
 
-puts sharedGames.length
+puts shared_games.length
