@@ -38,6 +38,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   haml (>= 5.0.0)
@@ -45,7 +46,7 @@ DEPENDENCIES
   sinatra
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 2.7.2p137
 
 BUNDLED WITH
-   1.17.3
+   2.2.2
