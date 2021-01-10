@@ -2,8 +2,8 @@ require 'rubygems'
 require 'json'
 require 'net/http'
 
-@green = 76561198000976107
-@laggy = 76561197970651383
+@green = 76_561_198_000_976_107
+@laggy = 76_561_197_970_651_383
 @steam_key = ENV['STEAM_API_KEY']
 
 def pull_json(url)
