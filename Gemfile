@@ -4,4 +4,4 @@ ruby File.read('.ruby-version').strip
 
 gem 'haml', '>= 5.0.0'
 gem 'rubocop'
-gem 'sinatra'
+gem 'sinatra', '>= 2.2.0'
