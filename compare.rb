@@ -4,7 +4,7 @@ require 'net/http'
 
 @green = 76_561_198_000_976_107
 @laggy = 76_561_197_970_651_383
-@steam_key = ENV['STEAM_API_KEY']
+@steam_key = ENV.fetch('STEAM_API_KEY', nil)
 
 def pull_json(url)
   json = Net::HTTP.get(URI.parse(url))
