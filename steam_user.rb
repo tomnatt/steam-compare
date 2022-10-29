@@ -15,7 +15,7 @@ class SteamUser
 
   def owned_games
     # get the JSON list of the user's games
-    steam_key = ENV['STEAM_API_KEY']
+    steam_key = ENV.fetch('STEAM_API_KEY', nil)
     url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steam_key}&steamid=#{@id}&format=json"
     json = Net::HTTP.get(URI.parse(url))
     games_raw = JSON.parse(json)['response']['games']
