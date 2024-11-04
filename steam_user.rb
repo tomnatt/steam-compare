@@ -18,24 +18,10 @@ class SteamUser
     steam_key = ENV.fetch('STEAM_API_KEY', nil)
     url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=#{steam_key}&steamid=#{@id}&format=json"
     json = Net::HTTP.get(URI.parse(url))
-    games_raw = JSON.parse(json)['response']['games']
-
-    # put the games in a useful list
-    games = []
-    games_raw.each do |g|
-      games << g
-    end
-
-    games
+    JSON.parse(json)['response']['games']
   end
 
   def games_list
-    # create a list of just the games ids
-    games = []
-    @games_time.each do |g|
-      games << g['appid']
-    end
-
-    games
+    @games_time.map { |g| g['appid'] }
   end
 end
