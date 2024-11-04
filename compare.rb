@@ -31,17 +31,11 @@ end
 
 # get green's games
 green_games_raw = pull_owned_games(@green)['response']['games']
-green_games = []
-green_games_raw.each do |g|
-  green_games << g['appid']
-end
+green_games = green_games_raw.map { |g| g['appid'] }
 
 # get laggy's games
 laggy_games_raw = pull_owned_games(@laggy)['response']['games']
-laggy_games = []
-laggy_games_raw.each do |g|
-  laggy_games << g['appid']
-end
+laggy_games = laggy_games_raw.map { |g| g['appid'] }
 
 # get the intersection
 shared_games_ids = green_games & laggy_games
