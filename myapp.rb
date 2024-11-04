@@ -70,7 +70,7 @@ class MyApp < Sinatra::Base
 
     # add the game name and time (in hours)
     games.each do |g|
-      g['name'] = app_hash[g['appid']]
+      g['name'] = get_game(g['appid'], app_hash)
       g['time_played'] = g['playtime_forever'] / 60
     end
 
@@ -85,5 +85,12 @@ class MyApp < Sinatra::Base
     return list1 & list2 unless list1.empty?
 
     list2
+  end
+
+  # Workaround in case appid has been retired (historical source - steamdb)
+  def get_game(appid, app_hash)
+    return 'Dragon Age: Origins' if appid == 17_450
+
+    app_hash[appid]
   end
 end
