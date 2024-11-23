@@ -90,7 +90,10 @@ class MyApp < Sinatra::Base
   # Workaround in case appid has been retired (historical source - steamdb)
   def get_game(appid, app_hash)
     return 'Dragon Age: Origins' if appid == 17_450
+    return 'Warhammer 40,000: Dawn of War II - Retribution' if appid == 56_400
+    return 'DARK SOULS™: Prepare To Die™ Edition' if appid == 211_420
 
+    # puts "#{appid}\t#{app_hash[appid]}"
     app_hash[appid]
   end
 end
