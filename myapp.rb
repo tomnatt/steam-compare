@@ -15,6 +15,7 @@ class MyApp < Sinatra::Base
   users = {}
   config['users'].each do |u|
     users[u['name'].downcase] = SteamUser.new(u['name'], u['id'])
+    sleep 1 # Initializer above hits the Steam API so avoid hammering it
   end
 
   # load the appid to name data
