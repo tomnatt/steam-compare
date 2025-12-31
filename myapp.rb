@@ -5,6 +5,7 @@ require 'haml'
 require 'sinatra'
 
 require './steam_user'
+require './steamdb/steam_storedata'
 
 class MyApp < Sinatra::Base
   # load config file
@@ -18,15 +19,8 @@ class MyApp < Sinatra::Base
     sleep 1 # Initializer above hits the Steam API so avoid hammering it
   end
 
-  # load the appid to name data
-  url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0001/'
-  app_list = JSON.parse(Net::HTTP.get(URI.parse(url)))
-
-  # put the appid to name data in a useful format
-  app_hash = {}
-  app_list['applist']['apps']['app'].each do |a|
-    app_hash[a['appid']] = a['name']
-  end
+  steam_store = SteamStoredata.new
+  app_hash = steam_store.app_hash
 
   # routing
   get '/' do
