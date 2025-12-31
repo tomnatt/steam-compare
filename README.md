@@ -22,7 +22,7 @@ bundle install
 
 Go!
 ```sh
-bundle exec rackup
+bundle exec puma
 ```
 
 Behold:
