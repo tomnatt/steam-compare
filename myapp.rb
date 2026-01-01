@@ -65,7 +65,7 @@ class MyApp < Sinatra::Base
 
     # add the game name and time (in hours)
     games.each do |g|
-      g['name'] = get_game(g['appid'], app_hash)
+      g['name'] = steam_store.get_name_from_id(g['appid'])
       g['time_played'] = g['playtime_forever'] / 60
     end
 
