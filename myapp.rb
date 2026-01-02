@@ -20,7 +20,6 @@ class MyApp < Sinatra::Base
   end
 
   steam_store = SteamStoredata.new
-  app_hash = steam_store.app_hash
 
   # routing
   get '/' do
@@ -41,10 +40,10 @@ class MyApp < Sinatra::Base
 
     # convert the games id list to game names
     shared_games = []
-    shared_games_ids.each do |g|
-      next if app_hash[g].nil?
+    shared_games_ids.each do |game_id|
+      next if steam_store.get_name_from_id(game_id).nil?
 
-      shared_games << app_hash[g]
+      shared_games << steam_store.get_name_from_id(game_id)
     end
     shared_games.sort!
 
@@ -80,15 +79,5 @@ class MyApp < Sinatra::Base
     return list1 & list2 unless list1.empty?
 
     list2
-  end
-
-  # Workaround in case appid has been retired (historical source - steamdb)
-  def get_game(appid, app_hash)
-    return 'Dragon Age: Origins' if appid == 17_450
-    return 'Warhammer 40,000: Dawn of War II - Retribution' if appid == 56_400
-    return 'DARK SOULS™: Prepare To Die™ Edition' if appid == 211_420
-
-    # puts "#{appid}\t#{app_hash[appid]}"
-    app_hash[appid]
   end
 end
