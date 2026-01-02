@@ -5,7 +5,7 @@ require 'haml'
 require 'sinatra'
 
 require './steam_user'
-require './steamdb/steam_storedata'
+require_relative 'steamdb/steam_storedata'
 
 class MyApp < Sinatra::Base
   # load config file
