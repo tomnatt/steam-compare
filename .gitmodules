@@ -1,0 +1,3 @@
+[submodule "steamdb"]
+	path = steamdb
+	url = git@github.com:tomnatt/steamdb.git

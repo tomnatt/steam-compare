@@ -5,6 +5,7 @@ require 'haml'
 require 'sinatra'
 
 require './steam_user'
+require './steamdb/steam_storedata'
 
 class MyApp < Sinatra::Base
   # load config file
@@ -18,15 +19,7 @@ class MyApp < Sinatra::Base
     sleep 1 # Initializer above hits the Steam API so avoid hammering it
   end
 
-  # load the appid to name data
-  url = 'http://api.steampowered.com/ISteamApps/GetAppList/v0001/'
-  app_list = JSON.parse(Net::HTTP.get(URI.parse(url)))
-
-  # put the appid to name data in a useful format
-  app_hash = {}
-  app_list['applist']['apps']['app'].each do |a|
-    app_hash[a['appid']] = a['name']
-  end
+  steam_store = SteamStoredata.new
 
   # routing
   get '/' do
@@ -47,10 +40,10 @@ class MyApp < Sinatra::Base
 
     # convert the games id list to game names
     shared_games = []
-    shared_games_ids.each do |g|
-      next if app_hash[g].nil?
+    shared_games_ids.each do |game_id|
+      next if steam_store.get_name_from_id(game_id).nil?
 
-      shared_games << app_hash[g]
+      shared_games << steam_store.get_name_from_id(game_id)
     end
     shared_games.sort!
 
@@ -71,7 +64,7 @@ class MyApp < Sinatra::Base
 
     # add the game name and time (in hours)
     games.each do |g|
-      g['name'] = get_game(g['appid'], app_hash)
+      g['name'] = steam_store.get_name_from_id(g['appid'])
       g['time_played'] = g['playtime_forever'] / 60
     end
 
@@ -86,15 +79,5 @@ class MyApp < Sinatra::Base
     return list1 & list2 unless list1.empty?
 
     list2
-  end
-
-  # Workaround in case appid has been retired (historical source - steamdb)
-  def get_game(appid, app_hash)
-    return 'Dragon Age: Origins' if appid == 17_450
-    return 'Warhammer 40,000: Dawn of War II - Retribution' if appid == 56_400
-    return 'DARK SOULS™: Prepare To Die™ Edition' if appid == 211_420
-
-    # puts "#{appid}\t#{app_hash[appid]}"
-    app_hash[appid]
   end
 end
