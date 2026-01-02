@@ -5,7 +5,9 @@ require 'haml'
 require 'sinatra'
 
 require './steam_user'
-require_relative 'steamdb/steam_storedata'
+# rubocop:disable Style/RedundantFileExtensionInRequire
+require_relative 'steamdb/steam_storedata.rb'
+# rubocop:enable Style/RedundantFileExtensionInRequire
 
 class MyApp < Sinatra::Base
   # load config file
