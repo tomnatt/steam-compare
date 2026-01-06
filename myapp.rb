@@ -5,9 +5,7 @@ require 'haml'
 require 'sinatra'
 
 require './steam_user'
-# rubocop:disable Style/RedundantFileExtensionInRequire
-require_relative 'steamdb/steam_storedata.rb'
-# rubocop:enable Style/RedundantFileExtensionInRequire
+require './steamdb/database_access'
 
 class MyApp < Sinatra::Base
   # load config file
@@ -21,7 +19,7 @@ class MyApp < Sinatra::Base
     sleep 1 # Initializer above hits the Steam API so avoid hammering it
   end
 
-  steam_store = SteamStoredata.new
+  steam_store = DatabaseAccess.new
 
   # routing
   get '/' do
